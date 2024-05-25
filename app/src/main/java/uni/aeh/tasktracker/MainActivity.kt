@@ -19,13 +19,16 @@ import uni.aeh.tasktracker.home.ui.HomeScreen
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
+
         setContent {
             TaskTrackerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "details") {
-                        composable("home") { HomeScreen(navController,"dope name" ) }
+
+                    NavHost(navController = navController, startDestination = "home") {
+                        composable("home") { HomeScreen(navController, "dope name") }
                         composable("details") { DetailsScreen(navController) }
                     }
 
