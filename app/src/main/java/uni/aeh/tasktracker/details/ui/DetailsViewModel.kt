@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import uni.aeh.tasktracker.Screen
 import javax.inject.Inject
 
 @HiltViewModel()
@@ -32,7 +33,7 @@ class DetailsViewModel @Inject constructor() : ViewModel() {
     }
 
     fun buttonClicked(navController: NavController) {
-        navController.navigate("home")
+        navController.navigate(Screen.Home.route)
     }
 }
 

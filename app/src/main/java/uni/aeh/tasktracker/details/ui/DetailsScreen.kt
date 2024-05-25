@@ -15,6 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
+import uni.aeh.tasktracker.Screen
 
 @Composable
 fun DetailsScreen(navController: NavController) {
@@ -29,7 +30,7 @@ fun DetailsScreen(navController: NavController) {
         coroutineScope.launch {
             viewModel.detailsFlow.collect { detailsEffect ->
                 when (detailsEffect) {
-                    DetailsEffect.ShowHome -> navController.navigate("home")
+                    DetailsEffect.ShowHome -> navController.navigate(Screen.Home.route)
                 }
             }
         }

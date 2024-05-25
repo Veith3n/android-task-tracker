@@ -8,6 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import uni.aeh.tasktracker.Screen
 
 
 @Composable
@@ -16,7 +17,7 @@ fun HomeScreen(navController: NavHostController, name: String) {
 
 
     fun clickButton() {
-        navController.navigate("details")
+        navController.navigate(Screen.Details.route)
     }
 
     Column {

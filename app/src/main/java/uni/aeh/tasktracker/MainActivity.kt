@@ -15,6 +15,11 @@ import uni.aeh.tasktracker.core.ui.theme.TaskTrackerTheme
 import uni.aeh.tasktracker.details.ui.DetailsScreen
 import uni.aeh.tasktracker.home.ui.HomeScreen
 
+enum class Screen(val route: String) {
+    Home("home"),
+    Details("details")
+}
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,9 +32,9 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val navController = rememberNavController()
 
-                    NavHost(navController = navController, startDestination = "home") {
-                        composable("home") { HomeScreen(navController, "dope name") }
-                        composable("details") { DetailsScreen(navController) }
+                    NavHost(navController = navController, startDestination = Screen.Home.route) {
+                        composable(Screen.Home.route) { HomeScreen(navController, "dope name") }
+                        composable(Screen.Details.route) { DetailsScreen(navController) }
                     }
 
                 }
