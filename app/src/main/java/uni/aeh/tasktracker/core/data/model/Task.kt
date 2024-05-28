@@ -39,4 +39,10 @@ data class Task(
 
             return dateFormat.format(Date(dueDate))
         }
+
+    val isOverdue: Boolean
+        get() = !completed && dueDate < System.currentTimeMillis()
+
+    val isCompleted: Boolean
+        get() = completed
 }
