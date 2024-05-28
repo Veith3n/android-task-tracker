@@ -16,7 +16,7 @@ import java.util.Date
 
 
 @Composable
-fun HomeScreen(navController: NavHostController, name: String) {
+fun HomeScreen(navController: NavHostController) {
     val viewModel: HomeViewModel = hiltViewModel()
     val tasks by viewModel.tasks.collectAsState()
 
@@ -59,5 +59,5 @@ fun HomeScreen(navController: NavHostController, name: String) {
 private fun HomeScreenPreview() {
     val navController = rememberNavController()
 
-    HomeScreen(navController, "Dope name")
+    HomeScreen(navController)
 }
