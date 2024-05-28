@@ -13,12 +13,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import uni.aeh.tasktracker.Screen
 import uni.aeh.tasktracker.core.data.model.CreateTask
+import uni.aeh.tasktracker.core.ui.theme.task.AddTaskDialog
 import uni.aeh.tasktracker.core.ui.theme.task.TaskItem
 import java.util.Date
 
@@ -27,6 +31,7 @@ import java.util.Date
 fun HomeScreen(navController: NavHostController) {
     val viewModel: HomeViewModel = hiltViewModel()
     val tasks by viewModel.tasks.collectAsState()
+    var showAddTaskDialog by remember { mutableStateOf(false) }
 
     fun clickButton() {
         navController.navigate(Screen.Details.route)
@@ -65,6 +70,25 @@ fun HomeScreen(navController: NavHostController) {
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Add Sample Task")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(
+            onClick = { showAddTaskDialog = true },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Add New Task")
+        }
+
+        if (showAddTaskDialog) {
+            AddTaskDialog(
+                onDismissRequest = { showAddTaskDialog = false },
+                onTaskAdded = { newTask ->
+                    viewModel.addTask(newTask)
+                    showAddTaskDialog = false
+                }
+            )
         }
 
         Spacer(modifier = Modifier.height(16.dp))
