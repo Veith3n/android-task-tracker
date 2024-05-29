@@ -50,6 +50,9 @@ fun HomeScreen(navController: NavHostController) {
             items(tasks) { task ->
                 TaskItem(
                     task = task,
+                    onTaskStatusChanged = { updatedTask ->
+                        viewModel.onTaskStatusChanged(updatedTask)
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = Consts.SMALL_SPACING)
@@ -72,8 +75,7 @@ fun HomeScreen(navController: NavHostController) {
             Text(text = "Add Sample Task")
         }
 
-        Spacer(modifier = Modifier.height(Consts.NORMAL_SPACING))
-
+        Spacer(modifier = Modifier.height(Consts.SMALL_SPACING))
         Button(
             onClick = { showAddTaskDialog = true },
             modifier = Modifier.fillMaxWidth()
@@ -91,8 +93,16 @@ fun HomeScreen(navController: NavHostController) {
             )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(Consts.SMALL_SPACING))
+        Button(
+            onClick = { viewModel.deleteAll() },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Delete all")
+        }
 
+
+        Spacer(modifier = Modifier.height(Consts.SMALL_SPACING))
         Button(
             onClick = { clickButton() },
             modifier = Modifier.fillMaxWidth()

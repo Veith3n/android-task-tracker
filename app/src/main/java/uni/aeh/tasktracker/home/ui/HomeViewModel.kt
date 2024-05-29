@@ -35,7 +35,29 @@ class HomeViewModel @Inject constructor(private val taskRepository: TaskReposito
                 _tasks.value = taskRepository.getTasks()
             } catch (e: Exception) {
                 Log.e("HomeViewModel", "Error adding task", e)
+            }
+        }
+    }
 
+    fun onTaskStatusChanged(task: Task) {
+        viewModelScope.launch {
+            try {
+                taskRepository.updateTask(task)
+
+                _tasks.value = taskRepository.getTasks()
+            } catch (e: Exception) {
+                Log.e("HomeViewModel", "Error updating task", e)
+            }
+        }
+    }
+
+    fun deleteAll() {
+        viewModelScope.launch {
+            try {
+                taskRepository.deleteAll()
+                _tasks.value = taskRepository.getTasks()
+            } catch (e: Exception) {
+                Log.e("HomeViewModel", "Error deleting tasks", e)
             }
         }
     }
