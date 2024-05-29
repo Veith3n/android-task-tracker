@@ -29,9 +29,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.unit.dp
 import uni.aeh.tasktracker.core.data.model.CreateTask
 import uni.aeh.tasktracker.core.data.time.mapDateToBeRepresentedCorrectlyInDeviceTimezone
+import uni.aeh.tasktracker.core.ui.theme.Consts
 import java.util.Date
 
 
@@ -96,7 +96,7 @@ fun AddTaskDialog(
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(Consts.NORMAL_SPACING))
                 OutlinedTextField(
                     value = description,
                     onValueChange = { description = it },
@@ -105,13 +105,13 @@ fun AddTaskDialog(
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(Consts.NORMAL_SPACING))
                 DatePicker(
                     state = datePickerState,
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(Consts.NORMAL_SPACING))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -120,7 +120,7 @@ fun AddTaskDialog(
                         checked = isTimePickerVisible,
                         onCheckedChange = { isTimePickerVisible = it }
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(Consts.SMALL_SPACING))
                     Text("Set Time")
                 }
                 if (isTimePickerVisible) {

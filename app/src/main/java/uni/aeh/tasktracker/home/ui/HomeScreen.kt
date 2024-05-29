@@ -17,11 +17,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import uni.aeh.tasktracker.Screen
 import uni.aeh.tasktracker.core.data.model.CreateTask
+import uni.aeh.tasktracker.core.ui.theme.Consts
 import uni.aeh.tasktracker.core.ui.theme.task.AddTaskDialog
 import uni.aeh.tasktracker.core.ui.theme.task.TaskItem
 import java.util.Date
@@ -40,9 +40,9 @@ fun HomeScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(Consts.NORMAL_SPACING)
     ) {
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(Consts.NORMAL_SPACING))
 
         LazyColumn(
             modifier = Modifier.weight(1f)
@@ -52,7 +52,7 @@ fun HomeScreen(navController: NavHostController) {
                     task = task,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 8.dp)
+                        .padding(vertical = Consts.SMALL_SPACING)
                 )
             }
         }
@@ -72,7 +72,7 @@ fun HomeScreen(navController: NavHostController) {
             Text(text = "Add Sample Task")
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(Consts.NORMAL_SPACING))
 
         Button(
             onClick = { showAddTaskDialog = true },
