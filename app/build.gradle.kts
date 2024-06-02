@@ -69,6 +69,13 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     // Kotlin Extensions and Coroutines support for Room
     implementation(libs.androidx.room.ktx)
+    implementation(libs.easy.permissions)
+
+
+    //permission handling
+    implementation(libs.easy.permissions)
+    implementation(libs.easy.permissions.ktx)
+
 
     testImplementation(libs.junit)
     testImplementation(libs.junit.jupiter.api)
