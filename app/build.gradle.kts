@@ -75,6 +75,7 @@ dependencies {
     //permission handling
     implementation(libs.easy.permissions)
     implementation(libs.easy.permissions.ktx)
+    implementation(libs.play.services.location)
 
 
     testImplementation(libs.junit)
