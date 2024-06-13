@@ -1,6 +1,8 @@
 package uni.aeh.tasktracker.details.ui
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.app.ActivityCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -41,6 +44,10 @@ fun DetailsScreen(navController: NavController, context: Context = LocalContext.
         }
     }
 
+    LaunchedEffect(Unit) {
+        viewModel.getCurrentLocation(context)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -58,7 +65,11 @@ fun DetailsScreen(navController: NavController, context: Context = LocalContext.
             Text(text = "Latitude: ${location.latitude}")
             Text(text = "Longitude: ${location.longitude}")
         } ?: run {
-            Text(text = "You need to grant location permissions in order for this feature to work correctly")
+            if (!hasLocationPermissions(context)) {
+                Text(text = "Fetching cords")
+            } else {
+                Text(text = "You need to grant location permissions in order for this feature to work correctly")
+            }
         }
 
 
@@ -70,6 +81,17 @@ fun DetailsScreen(navController: NavController, context: Context = LocalContext.
             Text(text = "passed nav")
         }
     }
+}
+
+fun hasLocationPermissions(context: Context): Boolean {
+    return (ActivityCompat.checkSelfPermission(
+        context,
+        Manifest.permission.ACCESS_FINE_LOCATION
+    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+        context,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+    ) != PackageManager.PERMISSION_GRANTED
+            )
 }
 
 @Preview
