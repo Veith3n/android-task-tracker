@@ -3,9 +3,13 @@ package uni.aeh.tasktracker.details.ui
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,7 +17,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
@@ -22,6 +25,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 import uni.aeh.tasktracker.Screen
+import uni.aeh.tasktracker.core.ui.theme.Consts
 
 @Composable
 fun DetailsScreen(navController: NavController, context: Context = LocalContext.current) {
@@ -51,19 +55,27 @@ fun DetailsScreen(navController: NavController, context: Context = LocalContext.
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Gray)
+            .padding(Consts.NORMAL_SPACING)
     ) {
+        Spacer(modifier = Modifier.height(Consts.NORMAL_SPACING))
+
         Button(
             onClick = {
                 viewModel.getCurrentLocation(context)
-            }
+            },
+            modifier = Modifier.fillMaxWidth(),
         ) {
             Text(text = "Get Current Location")
         }
 
         location.value?.let { location ->
-            Text(text = "Latitude: ${location.latitude}")
-            Text(text = "Longitude: ${location.longitude}")
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(Consts.SMALL_SPACING)
+            ) {
+                Text(text = "Latitude: ${location.latitude}")
+                Text(text = "Longitude: ${location.longitude}")
+            }
         } ?: run {
             if (!hasLocationPermissions(context)) {
                 Text(text = "Fetching cords")
@@ -73,12 +85,24 @@ fun DetailsScreen(navController: NavController, context: Context = LocalContext.
         }
 
 
-        Button(onClick = viewModel::buttonClicked) {
-            Text(text = "details effect")
-        }
+        Spacer(modifier = Modifier.height(Consts.BIG_SPACING))
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(Consts.SMALL_SPACING)
+        ) {
+            Button(
+                onClick = viewModel::buttonClicked,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Go home via details effect")
+            }
 
-        Button(onClick = { viewModel.buttonClicked(navController) }) {
-            Text(text = "passed nav")
+            Button(
+                onClick = { viewModel.buttonClicked(navController) },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Go home with passed nav")
+            }
         }
     }
 }
