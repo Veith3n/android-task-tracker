@@ -2,6 +2,9 @@ package uni.aeh.tasktracker
 
 
 import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
+import uni.aeh.tasktracker.core.ui.theme.Consts
 import uni.aeh.tasktracker.core.ui.theme.TaskTrackerTheme
 import uni.aeh.tasktracker.details.ui.DetailsScreen
 import uni.aeh.tasktracker.home.ui.HomeScreen
@@ -27,6 +31,7 @@ enum class Screen(val route: String) {
 @AndroidEntryPoint
 class MainActivity : ComponentActivity(), EasyPermissions.PermissionCallbacks {
     private val LOCATION_PERMISSION_REQUEST_CODE = 123
+    private val NOTIFICATION_PERMISSION_REQUEST_CODE = 1234
 
     override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
@@ -66,6 +71,30 @@ class MainActivity : ComponentActivity(), EasyPermissions.PermissionCallbacks {
         }
     }
 
+    private fun requestNotificationPermissions() {
+        val permissionsToRequest = mutableListOf<String>()
+
+        if (!EasyPermissions.hasPermissions(this, Manifest.permission.POST_NOTIFICATIONS)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                permissionsToRequest.add(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+
+
+        if (permissionsToRequest.isNotEmpty()) {
+            EasyPermissions.requestPermissions(
+                PermissionRequest.Builder(
+                    this,
+                    NOTIFICATION_PERMISSION_REQUEST_CODE,
+                    *permissionsToRequest.toTypedArray()
+                )
+                    .setRationale("Notification are required to get info when given task expires")
+                    .setPositiveButtonText("OK")
+                    .setNegativeButtonText("Cancel")
+                    .build()
+            )
+        }
+    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -98,5 +127,21 @@ class MainActivity : ComponentActivity(), EasyPermissions.PermissionCallbacks {
         }
 
         requestLocationPermissions()
+        requestNotificationPermissions()
+        createNotificationChannel()
+    }
+
+    private fun createNotificationChannel() {
+        if (EasyPermissions.hasPermissions(this, Manifest.permission.POST_NOTIFICATIONS)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                val channel = NotificationChannel(
+                    Consts.NOTIFICATION_CHANNEL_ID,
+                    "Task Expiration",
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
+                val notificationManager = getSystemService(NotificationManager::class.java)
+                notificationManager?.createNotificationChannel(channel)
+            }
+        }
     }
 }
