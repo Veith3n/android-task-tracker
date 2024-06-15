@@ -1,5 +1,6 @@
 package uni.aeh.tasktracker.home.ui
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import uni.aeh.tasktracker.Screen
@@ -28,7 +30,7 @@ import java.util.Date
 
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HomeScreen(navController: NavHostController, context: Context = LocalContext.current) {
     val viewModel: HomeViewModel = hiltViewModel()
     val tasks by viewModel.tasks.collectAsState()
     var showAddTaskDialog by remember { mutableStateOf(false) }
@@ -57,6 +59,15 @@ fun HomeScreen(navController: NavHostController) {
                         .fillMaxWidth()
                         .padding(vertical = Consts.SMALL_SPACING)
                 )
+                Button(
+                    onClick = {
+                        viewModel.showExpiredTaskNotification(task, context)
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(text = "Notification")
+                }
+
             }
         }
 
