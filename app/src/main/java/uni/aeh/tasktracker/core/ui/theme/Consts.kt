@@ -4,6 +4,7 @@ import androidx.compose.ui.unit.dp
 
 class Consts {
     companion object {
+        val BIG_SPACING = 32.dp
         val NORMAL_SPACING = 16.dp
         val SMALL_SPACING = 8.dp
     }
