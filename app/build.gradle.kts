@@ -78,6 +78,13 @@ dependencies {
     implementation(libs.play.services.location)
 
 
+    // notifications
+    implementation(libs.androidx.navigation)
+
+    // workers
+    implementation(libs.androidx.worker)
+    implementation(libs.hilt.worker)
+
     testImplementation(libs.junit)
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.mockito.kotlin)

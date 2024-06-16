@@ -7,5 +7,6 @@ class Consts {
         val BIG_SPACING = 32.dp
         val NORMAL_SPACING = 16.dp
         val SMALL_SPACING = 8.dp
+        val NOTIFICATION_CHANNEL_ID = "NOTIFICATION_CHANNEL_ID";
     }
 }

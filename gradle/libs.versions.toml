@@ -33,6 +33,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation = { module = "androidx.navigation:navigation-compose", version = "2.7.7" }
+androidx-notification = { module = "androidx.core:core-ktx", version = "2.2.0" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version = "1.2.0" }
@@ -42,6 +43,8 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 easy-permissions = { module = "pub.devrel:easypermissions", version = "3.0.0" }
 easy-permissions-ktx = { module = "com.vmadalin:easypermissions-ktx", version = "1.0.0" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+androidx-worker = { module = "androidx.work:work-runtime-ktx", version = "2.7.1" }
+hilt-worker = { module = "androidx.hilt:hilt-work", version = "1.2.0" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
