@@ -61,7 +61,7 @@ fun HomeScreen(navController: NavHostController, context: Context = LocalContext
                 )
                 Button(
                     onClick = {
-                        viewModel.showExpiredTaskNotification(task, context)
+                        viewModel.showTaskNotification(task, context)
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {

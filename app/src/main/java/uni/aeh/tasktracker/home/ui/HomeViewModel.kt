@@ -78,7 +78,7 @@ class HomeViewModel @Inject constructor(private val taskRepository: TaskReposito
         // Clear any resources or cancel coroutines here
     }
 
-    fun showExpiredTaskNotification(task: Task, context: Context) {
+    fun showTaskNotification(task: Task, context: Context) {
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -88,8 +88,8 @@ class HomeViewModel @Inject constructor(private val taskRepository: TaskReposito
 
         val builder = NotificationCompat.Builder(context, Consts.NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(androidx.core.R.drawable.notification_icon_background)
-            .setContentTitle("Task Expired")
-            .setContentText("${task.title} has expired")
+            .setContentTitle("Task Nudge")
+            .setContentText("${task.title} is pinging ya")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
